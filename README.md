@@ -81,6 +81,10 @@
     ```bash
     docker-compose up -d --build
     ```
+3. **Сгенерируйте ключ**
+    ```bash
+    docker-compose exec app php artisan key:generate
+    ```
 4.  **Выполните миграции базы данных:**
     ```bash
     docker-compose exec app php artisan migrate
