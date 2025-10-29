@@ -51,17 +51,12 @@
 
 ## Запуск приложения
 
-### Требования
-
-- Установленный [Docker](https://docs.docker.com/get-docker/)
-- Установленный [Docker Compose](https://docs.docker.com/compose/install/)
-
 ### Установка и запуск
 
 1.  **Склонируйте репозиторий:**
     ```bash
-    git clone <URL_ВАШЕГО_РЕПОЗИТОРИЯ>
-    cd <НАЗВАНИЕ_ПРОЕКТА>
+    git clone https://github.com/RadicalIguana/rest_api.git
+    cd rest_api
     ```
 
 2.  **Создайте файл окружения:**
@@ -77,7 +72,7 @@
     DB_HOST=mysql
     DB_PORT=3306
     DB_DATABASE=laravel_db
-    DB_USERNAME=laravel_user # Убедитесь, что это НЕ 'root'
+    DB_USERNAME=laravel_user
     DB_PASSWORD=secret_password
     # ...
     ```
