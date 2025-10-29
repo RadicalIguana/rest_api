@@ -1,61 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Тестовое задание "Создание REST API приложения"
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Описание
 
-## About Laravel
+Необходимо реализовать REST API приложения для справочника Организаций, Зданий, Деятельности.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Сущности
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Организация
+Представляет собой карточку организации в справочнике и должна содержать в себе следующую информацию:
+- **Название**: Например ООО “Рога и Копыта”
+- **Номер телефона**: организация может иметь несколько номеров телефонов (2-222-222, 3-333-333, 8-923-666-13-13)
+- **Здание**: Организация должна находится в одном конкретном здании (Например, Блюхера, 32/1)
+- **Деятельность**: Организация может заниматься несколькими видами деятельностей (Например, “Молочная продукция”, “Мясная продукция”)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Здание
+Содержит в себе как минимум информацию о конкретном здании, а именно:
+- **Адрес**: Например - г. Москва, ул. Ленина 1, офис 3
+- **Географические координаты**: Местоположение здания должно быть в виде широты и долготы.
 
-## Learning Laravel
+#### Деятельность
+Позволяет классифицировать род деятельности организаций в каталоге. Имеет название и может в древовидном виде вкладываться друг в друга. Пример возможного дерева деятельности:
+- Еда
+    - Мясная продукция
+    - Молочная продукция
+- Автомобили
+    - Грузовые
+    - Легковые
+        - Запчасти
+        - Аксессуары
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Функционал приложения
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Взаимодействие с пользователем происходит посредством HTTP запросов к API серверу с использованием **статического API ключа**. Все ответы должны быть в формате **JSON**. Необходимо реализовать следующие методы:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Список всех организаций находящихся в конкретном здании
+- Список всех организаций, которые относятся к указанному виду деятельности
+- Список организаций, которые находятся в заданном радиусе/прямоугольной области относительно указанной точки на карте
+- Список зданий
+- Вывод информации об организации по её идентификатору
+- Искать организации по виду деятельности. Например, поиск по виду деятельности «Еда», которая находится на первом уровне дерева, и чтобы нашлись все организации, которые относятся к видам деятельности, лежащим внутри. Т.е. в результатах поиска должны отобразиться организации с видом деятельности Еда, Мясная продукция, Молочная продукция.
+- Поиск организации по названию
+- Ограничить уровень вложенности деятельностей **3 уровням**
 
-## Laravel Sponsors
+## Задание
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Спроектировать БД + Создать необходимые миграции + Заполнить БД тестовыми данными
+- Реализовать API согласно разделу "Функционал приложения"
+- Завернуть приложения в Docker контейнер, чтобы его можно было развернуть на любой машине (Если необходимо, то написать инструкцию по разворачиванию)
+- Добавить в проект документацию Swagger UI или Redoc с описанием всех методов приложения.
 
-### Premium Partners
+## Запуск приложения
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Требования
 
-## Contributing
+- Установленный [Docker](https://docs.docker.com/get-docker/)
+- Установленный [Docker Compose](https://docs.docker.com/compose/install/)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Установка и запуск
 
-## Code of Conduct
+1.  **Склонируйте репозиторий:**
+    ```bash
+    git clone <URL_ВАШЕГО_РЕПОЗИТОРИЯ>
+    cd <НАЗВАНИЕ_ПРОЕКТА>
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2.  **Создайте файл окружения:**
+    ```bash
+    cp .env.example .env
+    ```
+    Откройте `.env` в редакторе и укажите необходимые настройки, например:
+    ```ini
+    # ...
+    API_KEY=secret
+    
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel_db
+    DB_USERNAME=laravel_user # Убедитесь, что это НЕ 'root'
+    DB_PASSWORD=secret_password
+    # ...
+    ```
 
-## Security Vulnerabilities
+3.  **Соберите и запустите контейнеры:**
+    ```bash
+    docker-compose up -d --build
+    ```
+4.  **Выполните миграции базы данных:**
+    ```bash
+    docker-compose exec app php artisan migrate
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5.  **Заполните базу тестовыми данными:**
+    ```bash
+    docker-compose exec app php artisan db:seed
+    ```
 
-## License
+### Доступ к приложению
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **API**: Приложение будет доступно по адресу `http://localhost:8000`.
+- **Swagger UI**: Документация к API будет доступна по адресу `http://localhost:8000/api/documentation`.
+
